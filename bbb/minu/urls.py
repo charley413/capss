@@ -3,7 +3,7 @@ from . import views
 from rest_framework.routers import DefaultRouter
 
 router=DefaultRouter()
-router.register('input',views.ReviewViewSet)
+router.register('input', views.ReviewViewSet)
 
 urlpatterns =[
     path('minutes/', include(router.urls)),
