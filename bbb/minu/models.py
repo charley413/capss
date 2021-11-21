@@ -3,6 +3,7 @@ from django.conf import settings
 
 # Create your models here.
 
+
 class Review(models.Model):
     name = models.ForeignKey(
          settings.AUTH_USER_MODEL, related_name="my_post_set", on_delete=models.CASCADE, default=''
