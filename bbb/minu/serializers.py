@@ -3,9 +3,15 @@ from rest_framework import serializers
 from .models import Review
 from django.contrib.auth import get_user_model
 
-class ReviewSerializer(serializers.ModelSerializer):
+class NameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ["username"]
 
+
+class ReviewSerializer(serializers.ModelSerializer):
+    name=NameSerializer(read_only=True)
     class Meta:
         model = Review
-        fields = ["id", "name", "created_at", "content", "summary", "title", "users_in", "date"]
+        fields = '__all__'
 
