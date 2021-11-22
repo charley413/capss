@@ -16,7 +16,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:/Users/samsung/Downloads/dgu-pro
 
 class ReviewViewSet(viewsets.ModelViewSet):
       queryset=(Review.objects.all()
-                .select_related("name"))
+                )
       serializer_class = ReviewSerializer
       #permission_classes = [AllowAny]
 
@@ -50,9 +50,9 @@ class ReviewViewSet(viewsets.ModelViewSet):
            response = operation.result()
            result = ""
            for res in response.results:
-               result += res.alternatives[0].transcript #고침
+               result += f"{res.alternatives[0].transcript}" #고침
            request.data._mutable = True
-           request.data["content"] = result
+           request.data['content'] = result
 
            serializer = self.get_serializer(data=request.data)
            serializer.is_valid(raise_exception=True)
