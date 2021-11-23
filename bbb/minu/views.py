@@ -37,7 +37,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
 
       def create(self, request, *args, **kwargs):
-           gcs_uri = f"gs://stt_dgu/{request.data['title']}"
+           gcs_uri = f"gs://stt_dgu/{request.data['title']}.wav"
 
            client = speech.SpeechClient()
            audio = speech.types.RecognitionAudio(uri=gcs_uri)
@@ -51,7 +51,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
            result = ""
            for res in response.results:
                result += f"{res.alternatives[0].transcript}" #고침
-           request.data._mutable = True
+           #request.data._mutable = True
            request.data['content'] = result
 
            serializer = self.get_serializer(data=request.data)
@@ -59,6 +59,12 @@ class ReviewViewSet(viewsets.ModelViewSet):
            self.perform_create(serializer)
 
            return Response({"msg": result}, status=status.HTTP_201_CREATED)
+
+
+
+
+
+
 
 
 
